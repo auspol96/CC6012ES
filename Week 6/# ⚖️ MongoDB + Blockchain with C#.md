@@ -39,16 +39,31 @@ Create a new Console App project and add these files:
 
 ## 📂 File: Block.cs
 ```csharp
+using System;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 public class Block
 {
+    [BsonId] // 👈 This tells MongoDB to expect the _id field
+    public ObjectId Id { get; set; }
+
+    [BsonElement("Index")]
     public int Index { get; set; }
-    public string PreviousHash { get; set; }
+
+    [BsonElement("Timestamp")]
     public long Timestamp { get; set; }
+
+    [BsonElement("PreviousHash")]
+    public string PreviousHash { get; set; }
+
+    [BsonElement("Data")]
     public BsonDocument Data { get; set; }
+
+    [BsonElement("Hash")]
     public string Hash { get; set; }
 }
+
 ```
 
 ---
@@ -67,7 +82,7 @@ public class Blockchain
 
     public Blockchain()
     {
-        var mongoClient = new MongoClient("mongodb://localhost:27017");
+        var mongoClient = new MongoClient("mongodb+srv://yourUsername:yourPassword@ptucluster0.xxxxx.mongodb.net/?        retryWrites=true&w=majority");
         var database = mongoClient.GetDatabase("BlockchainDB");
         blocksCollection = database.GetCollection<Block>("Blocks");
 
