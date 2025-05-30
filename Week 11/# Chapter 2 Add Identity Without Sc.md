@@ -15,9 +15,10 @@ This chapter shows how to manually add ASP.NET Core Identity (login, register, r
 Open **Package Manager Console** and run:
 
 ```bash
-Install-Package Microsoft.AspNetCore.Identity.EntityFrameworkCore
-Install-Package Microsoft.EntityFrameworkCore.SqlServer
-Install-Package Microsoft.EntityFrameworkCore.Tools
+Install-Package Microsoft.AspNetCore.Identity.EntityFrameworkCore -Version 7.0.20
+Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 7.0.20
+Install-Package Microsoft.EntityFrameworkCore.Tools -Version 7.0.20
+
 ```
 
 > 💡 These enable Identity and EF Core to work with SQL Server.
