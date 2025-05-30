@@ -11,28 +11,31 @@ This chapter walks students through setting up a new ASP.NET Core MVC project co
 
 ---
 
-## 🛠️ Step 1: Create a New Project
+✅ Step 1: Create a New ASP.NET MVC Project
+In Visual Studio:
 
-1. Open **Visual Studio 2022+**
-2. Select **ASP.NET Core Web App (Model-View-Controller)**
-3. Name it `MovieApp`
-4. Framework: Select **.NET 7.0** or later
-5. Leave Authentication as **None** for now (we'll add Identity later)
-6. Uncheck **Enable Docker**
-7. Create the project
+File → New → Project.
+
+Choose ASP.NET Core Web App (Model-View-Controller).
+
+Name it something like MovieApp.
+
+In the next window:
+
+.NET 7 or higher.
+
+Check Authentication Type → Individual Accounts (important for built-in Identity).
 
 ---
 
-## 🛠️ Step 2: Setup SQL Server Database
+✅ Step 2: Configure appsettings.json
+Replace the connection string with yours:
 
-1. Open **SQL Server Management Studio (SSMS)**
-2. Run this SQL to create the database:
-
-```sql
-CREATE DATABASE MovieDB;
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=MovieDB;Trusted_Connection=True;TrustServerCertificate=True"
+}
 ```
-
-> 💡 Tip: Use `localhost\SQLEXPRESS` if you're using SQL Server Express Edition.
 
 ---
 
