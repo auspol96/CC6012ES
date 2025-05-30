@@ -54,24 +54,49 @@ It will create the necessary tables: AspNetUsers, AspNetRoles, AspNetUserRoles, 
 In Program.cs, add:
 
 ```json
+
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using YourProjectNamespace.Data;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// DB Context using your connection string
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Add Identity with default settings
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapDefaultControllerRoute();
+app.Run();
 
-using (var scope = app.Services.CreateScope())
+```
+Create a new folder: /Data/
+
+In Data/ApplicationDbContext.cs:
+
+```json
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+public class ApplicationDbContext : IdentityDbContext
 {
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    string[] roles = { "Admin", "User" };
-    foreach (var role in roles)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
     {
-        if (!await roleManager.RoleExistsAsync(role))
-        {
-            await roleManager.CreateAsync(new IdentityRole(role));
-        }
     }
 }
+
+
 ```
+
 ---
 
 ## ✅ Outcome
