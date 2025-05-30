@@ -39,36 +39,39 @@ Replace the connection string with yours:
 
 ---
 
-## 🛠️ Step 3: Configure Connection String
-
-1. Open `appsettings.json`
-2. Replace or add the following:
+✅ Step 3: Add Identity Tables
+Run this in the Package Manager Console:
 
 ```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=MovieDB;Trusted_Connection=True;TrustServerCertificate=True"
-  },
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft.AspNetCore": "Warning"
-    }
-  },
-  "AllowedHosts": "*"
-}
+Add-Migration AddIdentityTables
+Update-Database
+It will create the necessary tables: AspNetUsers, AspNetRoles, AspNetUserRoles, etc.
 ```
-
-> 🔒 Use double backslashes `\\` in JSON for the SQL Server instance name.
 
 ---
 
-## 🛠️ Step 4: Verify the Project Runs
+✅ Step 4: Seed Roles (Admin/User)
+In Program.cs, add:
 
-1. Click **Run ▶** in Visual Studio (or press `Ctrl + F5`)
-2. The default landing page should load at `https://localhost:XXXX`
-3. If you see the default ASP.NET Core homepage, everything is working 🎉
+```json
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
+var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    string[] roles = { "Admin", "User" };
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+}
+```
 ---
 
 ## ✅ Outcome
