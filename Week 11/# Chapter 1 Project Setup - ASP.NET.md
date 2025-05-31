@@ -5,6 +5,7 @@ This chapter walks students through setting up a new ASP.NET Core MVC project co
 ---
 
 ## 🎯 Objective
+- Create a clean ASP.NET Core MVC app with manual login and registration, using Identity + Roles (Admin, User) without using scaffolded templates.
 - Create a new ASP.NET Core MVC project
 - Configure SQL Server connection
 - Verify project runs correctly
@@ -159,8 +160,24 @@ Example: Register.cshtml
     <button type="submit">Register</button>
 </form>
 ```
-
+Do the same for Login.cshtml.
 ---
+✅ 7. Add Links in Layout under nav in html tag
+
+In Shared/_Layout.cshtml:
+```html
+@if (User.Identity.IsAuthenticated)
+{
+    <form asp-controller="Account" asp-action="Logout" method="post">
+        <button type="submit">Logout</button>
+    </form>
+}
+else
+{
+    <a asp-controller="Account" asp-action="Login">Login</a>
+    <a asp-controller="Account" asp-action="Register">Register</a>
+}
+```
 ---
 ---
 ---
