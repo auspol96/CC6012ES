@@ -50,7 +50,7 @@ It will create the necessary tables: AspNetUsers, AspNetRoles, AspNetUserRoles, 
 
 ---
 
-✅ Step 4: Seed Roles (Admin/User)
+✅ Step 4: replace with below script to Program.cs, to accknowlege db connection string and add identity default setting.
 In Program.cs, add:
 
 ```json
@@ -96,7 +96,73 @@ public class ApplicationDbContext : IdentityDbContext
 
 
 ```
+---
 
+✅ 5. Create ViewModels
+Create /Models/RegisterViewModel.cs:
+
+```json
+using System.ComponentModel.DataAnnotations;
+
+public class RegisterViewModel
+{
+    [Required, EmailAddress]
+    public string Email { get; set; }
+
+    [Required, DataType(DataType.Password)]
+    public string Password { get; set; }
+
+    [Required, DataType(DataType.Password), Compare("Password")]
+    public string ConfirmPassword { get; set; }
+}
+```
+
+Create /Models/LoginViewModel.cs:
+
+```json
+
+using System.ComponentModel.DataAnnotations;
+
+public class LoginViewModel
+{
+    [Required, EmailAddress]
+    public string Email { get; set; }
+
+    [Required, DataType(DataType.Password)]
+    public string Password { get; set; }
+
+    public bool RememberMe { get; set; }
+}
+
+```
+---
+
+✅ 6. Create Views
+Inside /Views/Account/, add:
+
+Register.cshtml
+
+Login.cshtml
+
+Example: Register.cshtml
+
+```html
+@model RegisterViewModel
+
+<form asp-action="Register" method="post">
+    <label>Email</label>
+    <input asp-for="Email" />
+    <label>Password</label>
+    <input asp-for="Password" type="password" />
+    <label>Confirm Password</label>
+    <input asp-for="ConfirmPassword" type="password" />
+    <button type="submit">Register</button>
+</form>
+```
+
+---
+---
+---
 ---
 
 ## ✅ Outcome
