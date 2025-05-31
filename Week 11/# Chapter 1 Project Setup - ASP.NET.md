@@ -280,30 +280,6 @@ In Shared/_Layout.cshtml:
 </html>
 
 ```
----
-✅ Step 8: Protect by Role
-In any controller or action:
-
-```csharp
-
-[Authorize(Roles = "Admin")]
-public IActionResult AdminOnly()
-{
-    return View();
-}
-```
----
-✅ Step 9: Add an Admin Manually
-After registration, you can manually assign admin role:
-
-```csharp
-
-var user = await _userManager.FindByEmailAsync("admin@email.com");
-await _userManager.AddToRoleAsync(user, "Admin");
-
-```
-You can place this logic temporarily in a controller to promote a user.
-
 
 ---
 
@@ -313,8 +289,6 @@ You can place this logic temporarily in a controller to promote a user.
 You now have:
 
 ✅ Manual login and registration
-
-✅ Role support (Admin/User)
 
 ✅ Fully working MVC app using your SQL Server MovieDB
 
