@@ -57,19 +57,17 @@ In Program.cs, add:
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using MovieApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register services
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>()
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
+//  Tell ASP.NET to use your custom login path
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
@@ -78,30 +76,19 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddControllersWithViews();
 
-// MOVE builder.Build() AFTER seeding roles
 var app = builder.Build();
 
-// SEED ROLES (Admin, User)
-using (var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    string[] roles = { "Admin", "User" };
-
-    foreach (var role in roles)
-    {
-        if (!await roleManager.RoleExistsAsync(role))
-        {
-            await roleManager.CreateAsync(new IdentityRole(role));
-        }
-    }
-}
-
-// Middleware pipeline
+app.UseStaticFiles();
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapDefaultControllerRoute();
+
+app.MapDefaultControllerRoute();   //  This is enough
+// app.MapRazorPages();           //  REMOVE THIS LINE!
+
 app.Run();
+
 
 
 ```
@@ -109,7 +96,8 @@ Create a new folder: /Data/
 
 In Data/ApplicationDbContext.cs:
 
-```json
+```csharp
+
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -139,7 +127,10 @@ It will create the necessary tables: AspNetUsers, AspNetRoles, AspNetUserRoles, 
 ✅ 5. Create ViewModels
 Create /Models/RegisterViewModel.cs:
 
-```json
+```csharp
+
+using System.ComponentModel.DataAnnotations;
+
 using System.ComponentModel.DataAnnotations;
 
 public class RegisterViewModel
@@ -153,11 +144,13 @@ public class RegisterViewModel
     [Required, DataType(DataType.Password), Compare("Password")]
     public string ConfirmPassword { get; set; }
 }
+
+
 ```
 
 Create /Models/LoginViewModel.cs:
 
-```json
+```csharp
 
 using System.ComponentModel.DataAnnotations;
 
@@ -171,6 +164,7 @@ public class LoginViewModel
 
     public bool RememberMe { get; set; }
 }
+
 
 ```
 ---
@@ -195,33 +189,96 @@ Example: Register.cshtml
     <input asp-for="ConfirmPassword" type="password" />
     <button type="submit">Register</button>
 </form>
+
 ```
 Do the same for Login.cshtml.
 ```html
-@model MovieApp.Models.LoginViewModel
-<form asp-action="Login" method="post">
+
+@model LoginViewModel
+
+<form asp-action="Login" asp-controller="Account" method="post">
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="All" class="text-danger"></div> <!--  Show errors -->
+
     <input asp-for="Email" placeholder="Email" />
-    <input asp-for="Password" type="password" placeholder="Password" />
+    <input asp-for="Password" type="password" />
     <input asp-for="RememberMe" type="checkbox" /> Remember Me
+
     <button type="submit">Login</button>
 </form>
+
+
 ```
 ---
 ✅ 7. Add Links in Layout under nav in html tag
 
 In Shared/_Layout.cshtml:
+
 ```html
-@if (User.Identity.IsAuthenticated)
-{
-    <form asp-controller="Account" asp-action="Logout" method="post">
-        <button type="submit">Logout</button>
-    </form>
-}
-else
-{
-    <a asp-controller="Account" asp-action="Login">Login</a>
-    <a asp-controller="Account" asp-action="Register">Register</a>
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MovieApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MovieApp.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    <button type="submit">Logout</button>
+                </form>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Login">Login</a>
+                <a asp-controller="Account" asp-action="Register">Register</a>
+            }
+
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MovieApp</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - MovieApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
 ```
 ---
 ✅ Step 8: Protect by Role
