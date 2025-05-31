@@ -48,18 +48,7 @@ Microsoft.EntityFrameworkCore.Tools
 ```
 ---
 
-✅ Step 3: Add Identity Tables
-Run this in the Package Manager Console:
-
-```json
-Add-Migration AddIdentityTables
-Update-Database
-It will create the necessary tables: AspNetUsers, AspNetRoles, AspNetUserRoles, etc.
-```
-
----
-
-✅ Step 4: replace with below script to Program.cs, to accknowlege db connection string and add identity default setting.
+✅ Step 3: replace with below script to Program.cs, to accknowlege db connection string and add identity default setting.
 In Program.cs, add:
 
 ```json
@@ -105,6 +94,16 @@ public class ApplicationDbContext : IdentityDbContext
 
 
 ```
+---
+✅ Step 4: Add Identity Tables
+Run this in the Package Manager Console:
+
+```bash
+Add-Migration AddIdentityTables
+Update-Database
+It will create the necessary tables: AspNetUsers, AspNetRoles, AspNetUserRoles, etc.
+```
+
 ---
 
 ✅ 5. Create ViewModels
