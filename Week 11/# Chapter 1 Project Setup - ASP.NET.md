@@ -43,9 +43,10 @@ Right-click project → Manage NuGet Packages → Install:
 
 ```mathematica
 
-Microsoft.AspNetCore.Identity.EntityFrameworkCore
-Microsoft.EntityFrameworkCore.SqlServer
-Microsoft.EntityFrameworkCore.Tools
+Install-Package Microsoft.AspNetCore.Identity.EntityFrameworkCore -Version 7.0.20
+Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 7.0.20
+Install-Package Microsoft.EntityFrameworkCore.Tools -Version 7.0.20
+
 ```
 ---
 
