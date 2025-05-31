@@ -281,6 +281,28 @@ In Shared/_Layout.cshtml:
 
 ```
 
+SQL script to check database
+
+```sql
+
+SELECT TOP (1000) [Id]
+      ,[UserName]
+      ,[NormalizedUserName]
+      ,[Email]
+      ,[NormalizedEmail]
+      ,[EmailConfirmed]
+      ,[PasswordHash]
+      ,[SecurityStamp]
+      ,[ConcurrencyStamp]
+      ,[PhoneNumber]
+      ,[PhoneNumberConfirmed]
+      ,[TwoFactorEnabled]
+      ,[LockoutEnd]
+      ,[LockoutEnabled]
+      ,[AccessFailedCount]
+  FROM [MovieDB].[dbo].[AspNetUsers]
+```
+
 ---
 
 ## ✅ Outcome
