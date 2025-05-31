@@ -52,29 +52,56 @@ Microsoft.EntityFrameworkCore.Tools
 ✅ Step 3: replace with below script to Program.cs, to accknowlege db connection string and add identity default setting.
 In Program.cs, add:
 
-```json
+```csharp
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using YourProjectNamespace.Data;
+using Microsoft.Extensions.DependencyInjection;
+using MovieApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// DB Context using your connection string
+// Register services
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add Identity with default settings
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+});
 
 builder.Services.AddControllersWithViews();
 
+// MOVE builder.Build() AFTER seeding roles
 var app = builder.Build();
+
+// SEED ROLES (Admin, User)
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    string[] roles = { "Admin", "User" };
+
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+}
+
+// Middleware pipeline
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapDefaultControllerRoute();
 app.Run();
+
 
 ```
 Create a new folder: /Data/
