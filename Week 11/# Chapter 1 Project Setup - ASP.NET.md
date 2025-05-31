@@ -102,8 +102,9 @@ Run this in the Package Manager Console:
 ```bash
 Add-Migration AddIdentityTables
 Update-Database
-It will create the necessary tables: AspNetUsers, AspNetRoles, AspNetUserRoles, etc.
+
 ```
+It will create the necessary tables: AspNetUsers, AspNetRoles, AspNetUserRoles, etc.
 
 ---
 
