@@ -150,9 +150,8 @@ public class LoginViewModel
 ✅ 6. Create Views
 Inside /Views/Account/, add:
 
-Register.cshtml
-
-Login.cshtml
+6.1 Register.cshtml
+6.2 Login.cshtml
 
 Example: Register.cshtml
 
@@ -170,6 +169,15 @@ Example: Register.cshtml
 </form>
 ```
 Do the same for Login.cshtml.
+```html
+@model MovieApp.Models.LoginViewModel
+<form asp-action="Login" method="post">
+    <input asp-for="Email" placeholder="Email" />
+    <input asp-for="Password" type="password" placeholder="Password" />
+    <input asp-for="RememberMe" type="checkbox" /> Remember Me
+    <button type="submit">Login</button>
+</form>
+```
 ---
 ✅ 7. Add Links in Layout under nav in html tag
 
@@ -188,14 +196,42 @@ else
 }
 ```
 ---
+✅ Step 8: Protect by Role
+In any controller or action:
+
+```csharp
+
+[Authorize(Roles = "Admin")]
+public IActionResult AdminOnly()
+{
+    return View();
+}
+```
 ---
+✅ Step 9: Add an Admin Manually
+After registration, you can manually assign admin role:
+
+```csharp
+
+var user = await _userManager.FindByEmailAsync("admin@email.com");
+await _userManager.AddToRoleAsync(user, "Admin");
+
+```
+You can place this logic temporarily in a controller to promote a user.
+
+
 ---
 
 ## ✅ Outcome
 
-- Project compiles and runs
-- Connected to the database `MovieDB`
-- Ready for Identity and models in the next chapter
+✅ DONE!
+You now have:
+
+✅ Manual login and registration
+
+✅ Role support (Admin/User)
+
+✅ Fully working MVC app using your SQL Server MovieDB
 
 ---
 
