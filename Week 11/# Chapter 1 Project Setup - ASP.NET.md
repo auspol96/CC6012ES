@@ -30,6 +30,7 @@ Check Authentication Type → Individual Accounts (important for built-in Identi
 ---
 
 ✅ Step 2: Configure appsettings.json
+In appsettings.json:
 Replace the connection string with yours:
 
 ```json
