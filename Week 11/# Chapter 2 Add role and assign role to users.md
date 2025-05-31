@@ -1,6 +1,6 @@
 # Chapter 2: Add Identity Without Scaffolding
 
-This chapter shows how to manually add ASP.NET Core Identity (login, register, roles) without using scaffolding tools.
+This chapter shows how to manually add ASP.NET Core Identity (roles).
 
 ---
 
