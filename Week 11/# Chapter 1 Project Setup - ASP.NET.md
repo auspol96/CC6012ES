@@ -37,7 +37,15 @@ Replace the connection string with yours:
   "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=MovieDB;Trusted_Connection=True;TrustServerCertificate=True"
 }
 ```
+Add Required NuGet Packages
+Right-click project → Manage NuGet Packages → Install:
 
+```mathematica
+
+Microsoft.AspNetCore.Identity.EntityFrameworkCore
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Tools
+```
 ---
 
 ✅ Step 3: Add Identity Tables
