@@ -131,8 +131,6 @@ Create /Models/RegisterViewModel.cs:
 
 using System.ComponentModel.DataAnnotations;
 
-using System.ComponentModel.DataAnnotations;
-
 public class RegisterViewModel
 {
     [Required, EmailAddress]
@@ -308,6 +306,12 @@ SELECT TOP (1000) [Id]
 ## ✅ Outcome
 
 ✅ DONE!
+Please verify via below link. you should be able to register serval user e.g. admin, user1, user 2 in to the system.
+Also you can logout and relogin again successfully.
+
+1. Register : https://localhost:7219/Account/Register
+2. Then Login : https://localhost:7219/Account/Login
+   
 You now have:
 
 ✅ Manual login and registration
