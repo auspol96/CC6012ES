@@ -164,6 +164,50 @@ Replace the below code
 ...
 ```
 
+## 🔧 Step 4: Modify Login POST action in AccountController.cs
+
+This will redirect page to admin page once the admin login.
+Find your Login method and update it like this:
+
+```csharp
+
+[HttpPost]
+public async Task<IActionResult> Login(LoginViewModel model)
+{
+    if (!ModelState.IsValid)
+        return View(model);
+
+    var user = await _userManager.FindByEmailAsync(model.Email);
+    if (user == null)
+    {
+        ModelState.AddModelError("", "Invalid login attempt");
+        return View(model);
+    }
+
+    var result = await _signInManager.PasswordSignInAsync(
+        user, model.Password, model.RememberMe, lockoutOnFailure: false);
+
+    if (result.Succeeded)
+    {
+        var roles = await _userManager.GetRolesAsync(user);
+
+        // ✅ Redirect based on role
+        if (roles.Contains("Admin"))
+        {
+            return RedirectToAction("Index", "Admin");
+        }
+        else
+        {
+            return RedirectToAction("Index", "Home");
+        }
+    }
+
+    ModelState.AddModelError("", "Invalid login attempt");
+    return View(model);
+}
+
+```
+
 
 ## ✅ Outcome
 - You should see list of user/admin via https://localhost:7219/Admin
@@ -180,8 +224,6 @@ JOIN
     [MovieDB].[dbo].[AspNetUserRoles] ur ON u.Id = ur.UserId
 JOIN 
     [MovieDB].[dbo].[AspNetRoles] r ON ur.RoleId = r.Id;
-
-...
 
 
 ---
