@@ -1,23 +1,31 @@
-# Chapter 2: Add Identity Without Scaffolding
+# Chapter 2: list out users and identify admin role.
 
-This chapter shows how to manually add ASP.NET Core Identity (roles).
+This chapter shows how to list out all users and assign administrator role.
 
 ---
 
 ## 🎯 Objective
-- Add ASP.NET Core Identity manually
-- Prepare for user authentication and role management
+- list out all users
+- assign administrator role.
 
 ---
 
-## 🧩 Step 1: Install Required NuGet Packages
+## 🧩 Step 1: Add view model to display.
 
-Open **Package Manager Console** and run:
+Create Models/UserViewModel.cs:
 
-```bash
-Install-Package Microsoft.AspNetCore.Identity.EntityFrameworkCore -Version 7.0.20
-Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 7.0.20
-Install-Package Microsoft.EntityFrameworkCore.Tools -Version 7.0.20
+```csharp
+
+namespace MovieApp.Models
+{
+    public class UserViewModel
+    {
+        public string Id { get; set; }
+        public string Email { get; set; }
+        public bool IsAdmin { get; set; }
+    }
+}
+
 
 ```
 
