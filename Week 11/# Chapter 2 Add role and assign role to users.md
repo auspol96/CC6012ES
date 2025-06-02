@@ -169,7 +169,19 @@ Replace the below code
 - You should see list of user/admin via https://localhost:7219/Admin
 - You will be able to assign admin role to the system
 - Once admin is assigned, please remove remark out from AdminController.cs. Then try to login again as admin and see the outcome.
+- You should see admin assigned in the database as well.
+```sql
+  SELECT 
+    u.Email, 
+    r.Name AS Role
+FROM 
+    [MovieDB].[dbo].[AspNetUsers] u
+JOIN 
+    [MovieDB].[dbo].[AspNetUserRoles] ur ON u.Id = ur.UserId
+JOIN 
+    [MovieDB].[dbo].[AspNetRoles] r ON ur.RoleId = r.Id;
 
+...
 
 
 ---
