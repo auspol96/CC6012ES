@@ -33,24 +33,75 @@ namespace MovieApp.Models
 
 ---
 
-## 🛠️ Step 2: Create ApplicationDbContext
+## 🛠️ Step 2: Add Action in AdminController.cs
 
-📄 `Data/ApplicationDbContext.cs`
+📄 `Controllers/AdminController.cs`
 
 ```csharp
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 
-namespace MovieApp.Data
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using MovieApp.Models;
+
+namespace MovieApp.Controllers
 {
-    public class ApplicationDbContext : IdentityDbContext
+    [Authorize(Roles = "Admin")]
+    public class AdminController : Controller
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options) { }
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public DbSet<Movie> Movies { get; set; } // We'll add this in Chapter 6
+        public AdminController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            _userManager = userManager;
+            _roleManager = roleManager;
+        }
+
+        // ✅ List all users with their role status
+        public async Task<IActionResult> Index()
+        {
+            var users = _userManager.Users.ToList();
+            var model = new List<UserViewModel>();
+
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                model.Add(new UserViewModel
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    IsAdmin = roles.Contains("Admin")
+                });
+            }
+
+            return View(model);
+        }
+
+        // ✅ Promote user by ID
+        [HttpPost]
+        public async Task<IActionResult> Promote(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null) return NotFound();
+
+            if (!await _roleManager.RoleExistsAsync("Admin"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+
+            var result = await _userManager.AddToRoleAsync(user, "Admin");
+
+            if (result.Succeeded)
+            {
+                TempData["Message"] = $"{user.Email} promoted to Admin.";
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
+
 ```
 
 ---
