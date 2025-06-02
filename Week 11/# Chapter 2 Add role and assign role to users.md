@@ -106,35 +106,56 @@ namespace MovieApp.Controllers
 
 ---
 
-## 🔧 Step 3: Register Identity in Program.cs
+## 🔧 Step 3: Create the View /Views/Admin/Index.cshtml
 
-📄 `Program.cs`
+Replace the below code
 
-Replace the top part of your builder config with:
+```html
+@model List<MovieApp.Models.UserViewModel>
 
-```csharp
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using MovieApp.Data;
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
 
-var builder = WebApplication.CreateBuilder(args);
+<h2>Admin Dashboard</h2>
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.AddDefaultIdentity<IdentityUser>()
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-
-builder.Services.ConfigureApplicationCookie(options =>
+@if (TempData["Message"] != null)
 {
-    options.LoginPath = "/Account/Login";
-    options.AccessDeniedPath = "/Account/AccessDenied";
-});
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
 
-builder.Services.AddControllersWithViews();
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@(user.IsAdmin ? "Admin" : "User")</td>
+                <td>
+                    @if (!user.IsAdmin)
+                    {
+                        <form asp-action="Promote" method="post">
+                            <input type="hidden" name="id" value="@user.Id" />
+                            <button type="submit" class="btn btn-sm btn-primary">Promote to Admin</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span>✔ Already Admin</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-var app = builder.Build();
 ...
 ```
 
