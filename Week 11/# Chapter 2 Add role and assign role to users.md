@@ -103,6 +103,11 @@ namespace MovieApp.Controllers
 }
 
 ```
+> 🧠 Explanation:
+> - `at first you may need to remark out this first [Authorize(Roles = "Admin")]
+> - `this is due to there is no admin assign in our system below.
+
+---
 
 ---
 
@@ -159,45 +164,14 @@ Replace the below code
 ...
 ```
 
-> 🧠 Explanation:
-> - `.AddDefaultIdentity()` adds user registration and login logic
-> - `.AddRoles<IdentityRole>()` enables role-based access
-
----
-
-## 🧱 Step 4: Create Initial Migration
-
-Open **Package Manager Console** and run:
-
-```bash
-Add-Migration Init
-Update-Database
-```
-
-> 🧠 This creates all Identity tables (AspNetUsers, AspNetRoles, etc.) in `MovieDB`
-
----
-
-## 📊 What Tables Are Created?
-
-| Table Name             | Description                     |
-|-----------------------|----------------------------------|
-| AspNetUsers           | Stores user accounts             |
-| AspNetRoles           | Stores roles like Admin, User    |
-| AspNetUserRoles       | Maps users to roles              |
-| AspNetUserClaims      | Stores custom claims             |
-| AspNetUserLogins      | External login providers         |
-| AspNetUserTokens      | Auth tokens (e.g. remember me)   |
-| AspNetRoleClaims      | Role-specific claims             |
-
----
 
 ## ✅ Outcome
-- Identity is ready for Register/Login features (next chapter)
-- Tables are generated in SQL Server
-- Scaffold-free setup = full control
+- You should see list of user/admin via https://localhost:7219/Admin
+- You will be able to assign admin role to the system
+- Once admin is assigned, please remove remark out from AdminController.cs. Then try to login again as admin and see the outcome.
+
+
 
 ---
 
-### Next ➡️ Chapter 3: Implement Register and Login System (Manual Views & Controllers)
-Let me know when you’re ready!
+
