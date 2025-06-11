@@ -66,13 +66,15 @@ namespace MovieApp.Data
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>()
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
+//  Tell ASP.NET to use your custom login path
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
 });
 ```
 
@@ -83,26 +85,28 @@ builder.Services.ConfigureApplicationCookie(options =>
 📁 File: `Controllers/MovieController.cs`
 
 ```csharp
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieApp.Data;
 using MovieApp.Models;
+using System.Threading.Tasks;
 
-[Authorize]
-public class MovieController : Controller
+namespace MovieApp.Controllers
 {
-    private readonly ApplicationDbContext _context;
-
-    public MovieController(ApplicationDbContext context)
+    public class MovieController : Controller
     {
-        _context = context;
-    }
+        private readonly ApplicationDbContext _context;
 
-    public async Task<IActionResult> Index()
-    {
-        var movies = await _context.Movies.ToListAsync();
-        return View(movies);
+        public MovieController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var movies = await _context.Movies.ToListAsync();
+            return View(movies);
+        }
     }
 }
 ```
@@ -139,6 +143,7 @@ public class MovieController : Controller
         }
     </tbody>
 </table>
+
 ```
 
 ---
