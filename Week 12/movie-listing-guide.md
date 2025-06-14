@@ -36,22 +36,33 @@ namespace MovieApp.Models
 📁 File: `Data/ApplicationDbContext.cs`
 
 ```csharp
+// Required for ASP.NET Identity (login/register user tables)
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
+// Required for general Entity Framework Core functionality
 using Microsoft.EntityFrameworkCore;
+
+// Reference to your custom model classes like Movie.cs
 using MovieApp.Models;
 
 namespace MovieApp.Data
 {
+    // ApplicationDbContext inherits from IdentityDbContext
+    // This enables support for user authentication and role-based authorization
     public class ApplicationDbContext : IdentityDbContext
     {
+        // Constructor: takes database options (e.g., connection string) and passes them to the base class
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
+        // This will create a Movies table in the database based on the Movie model
         public DbSet<Movie> Movies { get; set; }
     }
 }
+
+
 ```
 
 📌 Make sure to add the correct `using` statements and inherit from `IdentityDbContext`.
