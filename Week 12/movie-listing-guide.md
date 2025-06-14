@@ -74,19 +74,29 @@ namespace MovieApp.Data
 📁 File: `Program.cs`
 
 ```csharp
+// Register ApplicationDbContext with dependency injection (DI)
+// This tells ASP.NET Core to use SQL Server and to get the connection string named "DefaultConnection" from appsettings.json
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Enable ASP.NET Core Identity system with built-in user & role management
+// - IdentityUser: represents a user
+// - IdentityRole: represents a role (e.g., Admin, User)
+// - AddEntityFrameworkStores<ApplicationDbContext>(): stores user/role data in the same database via EF Core
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+    .AddEntityFrameworkStores<ApplicationDbContext>()  // link Identity to our ApplicationDbContext
+    .AddDefaultTokenProviders();                       // required for features like email confirmation, password reset
 
-//  Tell ASP.NET to use your custom login path
+// Configure how cookies behave for login/logout/redirection
 builder.Services.ConfigureApplicationCookie(options =>
 {
+    // Redirect users to this path if they are not logged in
     options.LoginPath = "/Account/Login";
+
+    // Redirect users here if they try to access a page they don't have permission for
     options.AccessDeniedPath = "/Account/AccessDenied";
 });
+
 ```
 
 ---
