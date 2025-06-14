@@ -106,16 +106,25 @@ builder.Services.ConfigureApplicationCookie(options =>
 📁 File: `Controllers/MovieController.cs`
 
 ```csharp
+// Provides base types for MVC controllers like Controller, IActionResult, etc.
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MovieApp.Data;
-using MovieApp.Models;
-using System.Threading.Tasks;
 
+// Provides async LINQ and EF Core methods like ToListAsync()
+using Microsoft.EntityFrameworkCore;
+
+// Reference to your database context
+using MovieApp.Data;
+
+// Reference to your Movie model class
+using MovieApp.Models;
+
+// Namespace for organizing your controller class
 namespace MovieApp.Controllers
 {
+    // MovieController handles all logic related to displaying movies
     public class MovieController : Controller
     {
+        // Inject the database context via constructor
         private readonly ApplicationDbContext _context;
 
         public MovieController(ApplicationDbContext context)
@@ -123,13 +132,19 @@ namespace MovieApp.Controllers
             _context = context;
         }
 
+        // Index action: returns a list of movies to the view
+        // This method handles GET requests to /Movie
         public async Task<IActionResult> Index()
         {
+            // Fetch all movies from the Movies table asynchronously
             var movies = await _context.Movies.ToListAsync();
+
+            // Pass the movie list to the Index view
             return View(movies);
         }
     }
 }
+
 ```
 
 ---
