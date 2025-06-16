@@ -109,7 +109,7 @@ public async Task<IActionResult> Edit(int id, Movie movie)
 ## ✅ Summary
 
 You’ve now added:
-- An Edit action that fetches a movie by ID.
+- An Edit action that fetches a movie by ID. e.g. https://localhost:7219/Movie/Edit/2
 - A view that allows the user to modify the movie’s data.
 - Validation and error handling.
 
