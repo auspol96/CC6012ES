@@ -53,7 +53,7 @@ public async Task<IActionResult> DeleteConfirmed(int id)
 📁 File: `Views/Movie/Delete.cshtml`
 
 ```csharp
-@model MovieApp.Models.Movie
+@model Movie
 
 <h2>Confirm Delete</h2>
 
