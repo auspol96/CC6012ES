@@ -13,10 +13,10 @@ This guide walks you through implementing the **Edit** feature for your Movie mo
 [HttpGet]
 public async Task<IActionResult> Edit(int? id)
 {
-    if (id == null)
+    if (id == null)   //This checks whether the incoming ID is null (i.e., not provided in the URL).
         return NotFound();
 
-    var movie = await _context.Movies.FindAsync(id);
+    var movie = await _context.Movies.FindAsync(id);   //This line attempts to find the movie in the database with that ID
     if (movie == null)
         return NotFound();
 
