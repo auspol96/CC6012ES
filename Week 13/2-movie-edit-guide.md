@@ -34,10 +34,10 @@ public async Task<IActionResult> Edit(int id, Movie movie)
     {
         try
         {
-            _context.Update(movie); // Mark entity as modified
+            _context.Update(movie); // This movie object represents an existing, and i want to modify. 
             await _context.SaveChangesAsync(); // Save changes to DB
         }
-        catch (DbUpdateConcurrencyException)
+        catch (DbUpdateConcurrencyException) //this block is valid when the record suddenly deleted/updated by others.
         {
             if (!_context.Movies.Any(e => e.Id == id))
                 return NotFound();
@@ -45,7 +45,7 @@ public async Task<IActionResult> Edit(int id, Movie movie)
                 throw;
         }
 
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(Index)); //Send user back to the movie list page
     }
 
     return View(movie); // Return with validation errors if any
