@@ -53,8 +53,8 @@ public async Task<IActionResult> Edit(int id, Movie movie)
 ```
 
 📝 **Explanation:**
-- The `GET` method loads the movie for editing.
-- The `POST` method updates it if the form is valid.
+- The `GET` method loads the movie for editing. (GET Method — Reads from the Database)
+- The `POST` method updates it if the form is valid. (POST Method — Updates the Database)
 
 ---
 
