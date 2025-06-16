@@ -92,23 +92,27 @@ public async Task<IActionResult> Create(Movie movie)
 using System;
 using System.ComponentModel.DataAnnotations;
 
-public class Movie
+namespace MovieApp.Models
 {
-    public int Id { get; set; }
+    public class Movie
+    {
+        public int Id { get; set; }
 
-    [Required]
-    [StringLength(100)]
-    public string Title { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string Title { get; set; }
 
-    [DataType(DataType.Date)]
-    public DateTime ReleaseDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime ReleaseDate { get; set; }
 
-    [Range(0, 1000)]
-    public decimal Price { get; set; }
+        [Range(0, 1000)]
+        public decimal Price { get; set; }
 
-    [Required]
-    public string Genre { get; set; }
+        [Required]
+        public string Genre { get; set; }
+    }
 }
+
 ```
 
 📝 **Explanation:**
