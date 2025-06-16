@@ -124,7 +124,7 @@ namespace MovieApp.Models
 ## ✅ Summary
 
 You’ve now added:
-- A form to collect new movie data.
+- A form to collect new movie data. https://localhost:7219/Movie/Create 
 - Controller logic to insert the new record.
 - Model validation to catch incorrect input.
 
