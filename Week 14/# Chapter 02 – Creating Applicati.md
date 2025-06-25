@@ -93,7 +93,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=ShippingAppDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+    "DefaultConnection": "Server=CFW20280531\\SQLEXPRESS;Database=ShippingAppDb;Trusted_Connection=True;TrustServerCertificate=True;"
   },
   "Logging": {
     "LogLevel": {
