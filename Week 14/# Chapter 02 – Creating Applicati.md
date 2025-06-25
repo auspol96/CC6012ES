@@ -10,14 +10,15 @@ In this chapter, we will:
 
 #### ✅ Step 1: Create the Shipping Model
 
-**File:** `Models/Shipping.cs`
+**File:** `Models/ShippingRequest.cs`
 
 ```csharp
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ShippingApp.Models
 {
-    public class Shipping
+    public class ShippingRequest
     {
         public int Id { get; set; }
 
@@ -59,9 +60,10 @@ namespace ShippingApp.Data
         {
         }
 
-        public DbSet<Shipping> Shippings { get; set; }
+        public DbSet<ShippingRequest> ShippingRequests { get; set; }
     }
 }
+
 ```
 
 ---
