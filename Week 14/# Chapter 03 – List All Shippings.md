@@ -22,6 +22,7 @@ Display a list of all shipping records from the database in a web page.
 **Path:** `/Controllers/ShippingController.cs`
 ```csharp
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShippingApp.Data;
 using ShippingApp.Models;
 using System.Linq;
@@ -37,11 +38,12 @@ namespace ShippingApp.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var shipments = _context.Shippings.ToList();
-            return View(shipments);
+            var shippingList = await _context.ShippingRequests.ToListAsync();
+            return View(shippingList);
         }
+
     }
 }
 ```
@@ -51,7 +53,8 @@ namespace ShippingApp.Controllers
 ### 2. Create `Index.cshtml` View
 **Path:** `/Views/Shipping/Index.cshtml`
 ```html
-@model IEnumerable<ShippingApp.Models.Shipping>
+@model IEnumerable<ShippingApp.Models.ShippingRequest>
+
 
 <h2>Shipping List</h2>
 
@@ -65,15 +68,16 @@ namespace ShippingApp.Controllers
         </tr>
     </thead>
     <tbody>
-        @foreach (var ship in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@ship.FromLocation</td>
-                <td>@ship.ToLocation</td>
-                <td>@ship.ItemName</td>
-                <td>@ship.ShippingDate.ToShortDateString()</td>
+                <td>@item.FromLocation</td>
+                <td>@item.ToLocation</td>
+                <td>@item.ItemDescription</td>
+                <td>@item.Weight</td>
             </tr>
         }
+
     </tbody>
 </table>
 ```
@@ -108,89 +112,3 @@ namespace ShippingApp.Controllers
 
 ---
 
-# Chapter 04 – Create New Shipment Form
-
-## ✅ Objective
-Allow users to add a new shipment entry via a web form.
-
----
-
-## 📂 Folder/File Structure
-```
-/Controllers
-  └── ShippingController.cs
-/Views
-  └── /Shipping
-      └── Create.cshtml
-```
-
----
-
-## 💻 Code & Setup
-
-### 1. Update `ShippingController.cs`
-Add this to the existing controller:
-```csharp
-[HttpGet]
-public IActionResult Create()
-{
-    return View();
-}
-
-[HttpPost]
-public IActionResult Create(Shipping shipping)
-{
-    if (ModelState.IsValid)
-    {
-        _context.Shippings.Add(shipping);
-        _context.SaveChanges();
-        return RedirectToAction("Index");
-    }
-    return View(shipping);
-}
-```
-
----
-
-### 2. Create `Create.cshtml` View
-**Path:** `/Views/Shipping/Create.cshtml`
-```html
-@model ShippingApp.Models.Shipping
-
-<h2>Add New Shipment</h2>
-
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="FromLocation"></label>
-        <input asp-for="FromLocation" class="form-control" />
-        <span asp-validation-for="FromLocation" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ToLocation"></label>
-        <input asp-for="ToLocation" class="form-control" />
-        <span asp-validation-for="ToLocation" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ItemName"></label>
-        <input asp-for="ItemName" class="form-control" />
-        <span asp-validation-for="ItemName" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ShippingDate"></label>
-        <input asp-for="ShippingDate" class="form-control" type="date" />
-        <span asp-validation-for="ShippingDate" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Create</button>
-</form>
-```
-
----
-
-## 🧪 Expected Result
-- Users can navigate to `/Shipping/Create` and input shipping information.
-- Submitted data is saved to the database.
-- After submission, user is redirected to the shipping list page.
-
----
-
-Let me know when you're ready to proceed to **Chapter 05 – Edit Shipment Entry**.
