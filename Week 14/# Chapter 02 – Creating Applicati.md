@@ -93,7 +93,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=MovieDB;Trusted_Connection=True;TrustServerCertificate=True"
+  "DefaultConnection":"Server=localhost\\SQLEXPRESS;Database=ShippingAppDb;Trusted_Connection=True;TrustServerCertificate=True"
   },
 
   "Logging": {
