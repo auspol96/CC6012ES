@@ -93,8 +93,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=CFW20280531\\SQLEXPRESS;Database=ShippingAppDb;Trusted_Connection=True;TrustServerCertificate=True;"
+    "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=MovieDB;Trusted_Connection=True;TrustServerCertificate=True"
   },
+
   "Logging": {
     "LogLevel": {
       "Default": "Information",
@@ -103,6 +104,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
   },
   "AllowedHosts": "*"
 }
+
 ```
 
 ---
@@ -117,7 +119,14 @@ Update-Database
 ```
 
 You will see the new `ShippingAppDb` created with `Shippings` table.
+If you need to rerun the migration please follow this steps.
+```powershell
+Remove-Migration
 
+Add-Migration InitialCreate
+
+Update-Database
+```
 ---
 
 Let me know when ready for Chapter 03 – *Shipping Controller and List View*. 🚚
