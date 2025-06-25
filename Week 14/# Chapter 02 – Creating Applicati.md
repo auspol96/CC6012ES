@@ -130,3 +130,33 @@ Update-Database
 ---
 
 Let me know when ready for Chapter 03 – *Shipping Controller and List View*. 🚚
+Then try to insert data manually per below.
+
+
+```sql
+INSERT INTO [ShippingAppDb].[dbo].ShippingRequests (FromLocation, ToLocation, ItemDescription, Weight)
+VALUES 
+('Los Angeles, CA', 'San Francisco, CA', 'Sofa', 55.5),
+('Seattle, WA', 'Portland, OR', 'Bookshelf', 22.0),
+('Chicago, IL', 'Detroit, MI', 'Dining Table', 75.2),
+('Houston, TX', 'Austin, TX', 'TV Stand', 40.0),
+('Phoenix, AZ', 'Tucson, AZ', 'Queen Bed Frame', 65.3),
+('Miami, FL', 'Orlando, FL', 'Office Chair', 18.7),
+('Atlanta, GA', 'Nashville, TN', 'Kitchen Cabinet', 88.1),
+('Denver, CO', 'Salt Lake City, UT', 'Desk', 50.0),
+('Boston, MA', 'New York, NY', 'Couch', 70.4),
+('San Diego, CA', 'Las Vegas, NV', 'Mattress', 60.0),
+('Dallas, TX', 'El Paso, TX', 'Coffee Table', 30.9),
+('Minneapolis, MN', 'Milwaukee, WI', 'Shoe Rack', 12.2),
+('Columbus, OH', 'Cleveland, OH', 'TV', 28.6),
+('San Jose, CA', 'Fresno, CA', 'Wardrobe', 90.0),
+('Indianapolis, IN', 'Louisville, KY', 'Storage Box', 15.3),
+('Charlotte, NC', 'Raleigh, NC', 'Dining Chairs (Set of 4)', 44.0),
+('Kansas City, MO', 'St. Louis, MO', 'Glass Table', 48.5),
+('Albuquerque, NM', 'Santa Fe, NM', 'Bedside Table', 25.6),
+('Oklahoma City, OK', 'Tulsa, OK', 'Filing Cabinet', 32.8),
+('Las Vegas, NV', 'Phoenix, AZ', 'Books & Boxes', 20.0);
+
+```
+
+
