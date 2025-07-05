@@ -1,4 +1,4 @@
-# Chapter 6: Adding Google Maps Route Links
+# Chapter 1: Adding Google Maps Route Links
 
 In this chapter, you will extend your ShippingApp to include a clickable link for each record that opens the route between `FromLocation` and `ToLocation` in Google Maps.
 
