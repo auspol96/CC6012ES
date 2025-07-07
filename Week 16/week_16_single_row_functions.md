@@ -108,4 +108,4 @@ SELECT NVL(Discount, 0) AS Discount FROM Orders;
 
 ---
 
-🎯 Ready to push to GitHub as `week3_single_row_functions.md`!
+
