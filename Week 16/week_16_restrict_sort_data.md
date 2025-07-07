@@ -1,4 +1,4 @@
-# 📄 Week 2: Restricting and Sorting Data in Oracle SQL
+# 📄 Week 16: Restricting and Sorting Data in Oracle SQL
 
 This file summarizes **WHERE** and **ORDER BY** usage with clear **SQL commands** and their **sample results**.
 
