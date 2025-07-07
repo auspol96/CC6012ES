@@ -1,6 +1,20 @@
-# 📄 Week 3: Single-Row Functions in Oracle SQL
+# 📄 Week 16: Single-Row Functions in Oracle SQL
 
 This file summarizes single-row functions with clear **SQL commands** and their **sample results**.
+
+🔷 What is a Single-Row Function in SQL?
+A single-row function (also called a scalar function) is a built-in SQL function that processes one row at a time and returns one value per row.
+
+🧾 Why called “single-row”?
+Because it processes one row at a time and gives one output per row — as opposed to group (aggregate) functions like SUM() or AVG(), which process many rows and return a single result for a group.
+
+🔷 Example Query:
+```sql
+SELECT UPPER(Fname) AS Upper_Name, ROUND(Price, 2) AS Rounded_Price
+FROM Books;
+```
+✅ For each book in the table, it converts Fname to uppercase and rounds Price.
+
 
 ---
 
