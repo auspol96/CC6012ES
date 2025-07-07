@@ -144,4 +144,4 @@ ORDER BY Price, Title;
 
 ---
 
-🎯 Ready to push to GitHub as `week2_restrict_sort_data.md`!
+
