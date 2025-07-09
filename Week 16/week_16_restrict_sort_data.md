@@ -32,7 +32,7 @@ WHERE Price <= 11;
 ```sql
 SELECT Title, P_Code, Paperback, Price
 FROM Books
-WHERE Price <= ANY (8, 11, 12);
+WHERE Price <= ANY (44);
 ```
 
 - `>= ALL`
