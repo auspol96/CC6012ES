@@ -1,4 +1,4 @@
---Week 4: Displaying Data from Multiple Tables
+--Displaying Data from Multiple Tables
 ```sql
 SELECT B.Title, B.P_Code, P.P_Name 
 FROM Books B, Publisher P
@@ -37,7 +37,7 @@ WHERE first.B_Code = Second.B_Code;
 4.	Display the name of books and their publisher name for all the books whose publisher have ‘a’ as second character in their names.
 5.	Write a query to display the First name of author, books name and the release date for all the books of type ‘MYS’
 
---Week 5: Aggregating Data Using Group Functions
+--Aggregating Data Using Group Functions
 ```sql
 SELECT AVG(Price) AS AVG FROM Books;
 
