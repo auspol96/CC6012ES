@@ -38,7 +38,7 @@ WHERE first.B_Code = Second.B_Code;
 5.	Write a query to display the First name of author, books name and the release date for all the books of type ‘MYS’
 
 --Week 5: Aggregating Data Using Group Functions
-
+```sql
 SELECT AVG(Price) AS AVG FROM Books;
 
 SELECT COUNT(Title) AS CountTitle FROM Books;
@@ -90,7 +90,7 @@ HAVING COUNT(Title) > 2;
 SELECT MAX(AVG(Price))
 FROM Books
 GROUP BY P_Code;
-
+```
 --excercise 2
 1. Display the details of book with highest price.
 2. Display the details of books with lowest price.
