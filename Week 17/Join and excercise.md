@@ -1,27 +1,35 @@
 --Week 4: Displaying Data from Multiple Tables
-```sqlsql
+```sql
 SELECT B.Title, B.P_Code, P.P_Name 
 FROM Books B, Publisher P
 WHERE P.P_Code = B.P_Code order by B.Title;
 ```
 
+```sql
 SELECT I.B_Code, B.Title, B.Price, I.Quantity
 FROM Inventory I, Books B
 WHERE I.B_Code = B.B_Code;
+```
 
+```sql
 SELECT I.B_Code, B.Title, B.Price, I.Quantity
 FROM Inventory I, Books B
 WHERE I.B_Code = B.B_Code
 AND I.Quantity = 3;
+```
 
+```sql
 SELECT I.B_Code, B.Title, B.Price, I.Quantity
 FROM Books B, Inventory I
 WHERE I.B_Code (+) = B.B_Code;
+```
 
+```sql
 SELECT first.Author_ID, Second.Author_ID, first.B_Code
 FROM Written_By first, Written_By Second
 WHERE first.B_Code = Second.B_Code;
 
+```
 --excercise 1
 1.	Write a query to display author’s last name, Publisher name and city for all the books.
 2.	Crate a unique listing of the book name published by Penguin USA. Include the publishers name in the output.
