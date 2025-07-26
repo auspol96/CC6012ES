@@ -1,9 +1,9 @@
 --Week 4: Displaying Data from Multiple Tables
-%sql
+```sqlsql
 SELECT B.Title, B.P_Code, P.P_Name 
 FROM Books B, Publisher P
 WHERE P.P_Code = B.P_Code order by B.Title;
-%
+```
 
 SELECT I.B_Code, B.Title, B.Price, I.Quantity
 FROM Inventory I, Books B
