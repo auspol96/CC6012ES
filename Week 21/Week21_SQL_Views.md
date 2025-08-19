@@ -178,7 +178,7 @@ SELECT * FROM Book_Vu_SCI;
    ```sql
    UPDATE Book_Vu_SCI
    SET BookPrice = 599
-   WHERE BookCode = 'S123';
+   WHERE BookCode = '1001';
    ```
    ✅ This should work if the view is simple.
 
