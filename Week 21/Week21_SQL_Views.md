@@ -106,11 +106,17 @@ WHERE Type = 'FIC'
 WITH CHECK OPTION CONSTRAINT Book_Vu_FIC;
 ```
 
-👉 If you try to insert a book with `Type = 'SCI'`, Oracle will reject it.
+👉 If you try to insert a book with `Type = 'SCI'` , Oracle will reject it.
 
 **Error Message Example:**
 ```
 ORA-01402: view WITH CHECK OPTION where-clause violation
+```
+or you may try to update the view below, it will be success.
+```sql
+UPDATE Book_Vu_SCI
+SET PRICE = 799
+WHERE B_CODE = 1001;
 ```
 
 ---
