@@ -221,7 +221,7 @@ WITH READ ONLY;
 
 - Try updating or deleting a row:
   ```sql
-  DELETE FROM Book_Vu_SCI WHERE BookCode = 'S123';
+  DELETE FROM Book_Vu_SCI WHERE BookCode = '1001';
   ```
   👉 Oracle will return error **ORA-42399**.
 
