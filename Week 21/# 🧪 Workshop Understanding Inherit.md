@@ -4,6 +4,11 @@
 
 Use inheritance to build a **reusable model structure** for different types of animals, and display their shared and unique behaviors on a webpage.
 
+📘 What is Inheritance?
+
+English: Inheritance is a concept in object-oriented programming that allows one class (called the child or derived class) to inherit properties and methods from another class (called the parent or base class). It helps in code reuse and creating a logical relationship between classes.
+
+ภาษาไทย: Inheritance (การสืบทอดคลาส) คือแนวคิดในเชิงโปรแกรมเชิงวัตถุ (OOP) ที่อนุญาตให้คลาสหนึ่ง (เรียกว่า คลาสลูก) สามารถสืบทอดคุณสมบัติ (Properties) และเมธอด (Methods) จากอีกคลาสหนึ่ง (เรียกว่า คลาสแม่) ได้ เพื่อช่วยให้สามารถใช้โค้ดซ้ำได้ และมีโครงสร้างคลาสที่ชัดเจนยิ่งขึ้น
 ---
 
 ## 📁 Folder Structure
@@ -201,9 +206,5 @@ Add another animal such as `Elephant` that can `Trumpet()`, and render it in the
 
 ---
 
-Let me know if you'd like similar workshops for:
 
-* **Overloading**
-* **Overriding**
-* **Constructors**
-* **Abstraction (with interface or abstract class)**
+
