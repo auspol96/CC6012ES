@@ -75,7 +75,6 @@ END;
 
 ### Step 3: Query Without Index
 ```sql
-SET TIMING ON;
 SELECT * FROM Sales WHERE Product_ID = 50;
 ```
 
@@ -90,16 +89,14 @@ ON Sales (Product_ID);
 SELECT * FROM Sales WHERE Product_ID = 50;
 ```
 
-🔎 Compare execution speed before and after creating the index.  
-
-You can also run:
+🔎 To analyze performance in Oracle SQL Developer, use **EXPLAIN PLAN**:
 ```sql
 EXPLAIN PLAN FOR
 SELECT * FROM Sales WHERE Product_ID = 50;
 
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 ```
-to see how Oracle uses the index.
+You will see whether Oracle used a Full Table Scan or the new index.
 
 ### Step 6: Drop Index
 ```sql
