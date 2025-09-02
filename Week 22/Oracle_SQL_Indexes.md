@@ -91,8 +91,8 @@ SELECT * FROM Sales WHERE Product_ID = 50;
 
 🔎 To analyze performance in Oracle SQL Developer, use **EXPLAIN PLAN**:
 ```sql
-EXPLAIN PLAN FOR
-SELECT * FROM Sales WHERE Product_ID = 50;
+EXPLAIN PLAN FOR SELECT * FROM Sales WHERE Product_ID = 50;
+
 
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 ```
