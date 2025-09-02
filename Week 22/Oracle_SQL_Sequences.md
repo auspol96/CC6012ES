@@ -54,7 +54,7 @@ SELECT * FROM USER_SEQUENCES;
 ## 5. Using Sequences
 Insert a new record using the sequence:
 ```sql
-INSERT INTO New_Author
+INSERT INTO Author
 VALUES (Author_seq.NEXTVAL, 'V.S.', 'Naipaul');
 ```
 
