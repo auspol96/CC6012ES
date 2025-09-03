@@ -92,10 +92,7 @@ END;
 
 Then run the same query:
 ```sql
-EXPLAIN PLAN FOR
-SELECT Product_ID
-FROM Sales
-WHERE Product_ID = 50;
+EXPLAIN PLAN FOR SELECT Product_ID FROM Sales WHERE Product_ID = 50;
 
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 ```
