@@ -50,6 +50,8 @@ BEGIN
 END;
 /
 ```
+Note on DBMS_STATS.GATHER_TABLE_STATS:
+This command collects optimizer statistics for the specified table (and its indexes when cascade => TRUE). Statistics include row counts, column data distribution, and distinct values. Oracle’s optimizer uses these stats to decide whether to perform a Full Table Scan or use an Index. Always gather statistics after inserting large amounts of data or creating new indexes to ensure the optimizer makes the best decision.
 
 ---
 
