@@ -50,23 +50,16 @@ BEGIN
 END;
 /
 ```
-Note on DBMS_STATS.GATHER_TABLE_STATS:
-This command collects optimizer statistics for the specified table (and its indexes when cascade => TRUE). Statistics include row counts, column data distribution, and distinct values. Oracle’s optimizer uses these stats to decide whether to perform a Full Table Scan or use an Index. Always gather statistics after inserting large amounts of data or creating new indexes to ensure the optimizer makes the best decision.
 
 ---
 
 ### 🔎 Case 1: Query Without Index → Full Table Scan
-Note on EXPLAIN PLAN FOR:
-This command tells Oracle to generate the execution plan for a SQL statement, showing how the database will access data (e.g., Full Table Scan vs. Index Range Scan). It doesn’t actually run the query — instead, it records the plan in the PLAN_TABLE. You then retrieve it with:
-SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
-Using EXPLAIN PLAN helps developers understand and compare the efficiency of queries and verify whether indexes are being used.
-
 ```sql
-EXPLAIN PLAN FOR SELECT * FROM Sales WHERE Product_ID = 50;
+EXPLAIN PLAN FOR
+SELECT * FROM Sales WHERE Product_ID = 50;
 
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 ```
-
 **Expected Execution Plan**
 ```
 | Id | Operation           | Name  |
@@ -74,7 +67,6 @@ SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 |  0 | SELECT STATEMENT   |       |
 |  1 | TABLE ACCESS FULL  | SALES |
 ```
-
 Oracle scans the whole `SALES` table (Full Table Scan) to find matching rows.
 
 ---
@@ -89,14 +81,15 @@ BEGIN
 END;
 /
 ```
-
-Then run the same query:
+Then run the same query (index-only):
 ```sql
-EXPLAIN PLAN FOR SELECT Product_ID FROM Sales WHERE Product_ID = 50;
+EXPLAIN PLAN FOR
+SELECT Product_ID
+FROM Sales
+WHERE Product_ID = 50;
 
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 ```
-
 **Expected Execution Plan**
 ```
 | Id | Operation        | Name              |
@@ -104,7 +97,6 @@ SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 |  0 | SELECT STATEMENT|                   |
 |  1 | INDEX RANGE SCAN| SALES_PRODUCT_IDX |
 ```
-
 Now Oracle uses the index → only scans rows with `Product_ID = 50`.
 
 ---
@@ -123,10 +115,58 @@ DROP INDEX Sales_Product_IDX;
 
 ---
 
-## 6. Key Takeaways
-- Full Table Scan = Oracle reads all rows.  
-- Index Range Scan = Oracle uses the index to narrow down results faster.  
-- Index works best when queries return a small subset of rows and only need indexed columns.  
-- Optimizer chooses the cheapest path based on statistics.  
+## 6. Tips (Short Notes)
+**`DBMS_STATS.GATHER_TABLE_STATS`**: Collects optimizer statistics for the table (and its indexes when `cascade => TRUE`). Stats include row counts and data distribution. The optimizer uses these stats to choose **Full Table Scan** vs **Index**. Gather stats after large inserts or creating new indexes.  
+
+**`EXPLAIN PLAN FOR`**: Generates the **execution plan** for a SQL statement without running it; the plan is stored in `PLAN_TABLE`. View it with:  
+```sql
+SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+```
+
+---
+
+## 7. Troubleshooting: “Why do I still see TABLE ACCESS FULL?”
+Use this quick checklist:
+1. **Verify the index exists & is usable**
+   ```sql
+   SELECT index_name, status, visibility
+   FROM user_indexes
+   WHERE table_name='SALES';
+   SELECT index_name, column_name
+   FROM user_ind_columns
+   WHERE table_name='SALES';
+   ```
+2. **Refresh statistics**
+   ```sql
+   BEGIN
+     DBMS_STATS.GATHER_TABLE_STATS(
+       ownname   => USER,
+       tabname   => 'SALES',
+       cascade   => TRUE,
+       method_opt=> 'FOR ALL COLUMNS SIZE AUTO'
+     );
+   END;
+   /
+   ```
+3. **Make it index-only** (avoid `SELECT *` if possible):
+   ```sql
+   SELECT Product_ID FROM Sales WHERE Product_ID = 50;
+   ```
+4. **Increase selectivity or use composite index**:
+   ```sql
+   CREATE INDEX Sales_Prod_Date_IDX ON Sales(Product_ID, Sale_Date);
+   BEGIN DBMS_STATS.GATHER_TABLE_STATS(USER, 'SALES', cascade => TRUE); END; /
+   EXPLAIN PLAN FOR
+   SELECT Product_ID FROM Sales
+   WHERE Product_ID = 50 AND Sale_Date >= SYSDATE - 7;
+   SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+   ```
+5. **Demo-only (force index)**:
+   ```sql
+   EXPLAIN PLAN FOR
+   SELECT /*+ INDEX(Sales Sales_Product_IDX) */ Product_ID
+   FROM Sales WHERE Product_ID = 50;
+   SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+   ```
 
 ---
