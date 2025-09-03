@@ -88,41 +88,46 @@ public class InheritanceController : Controller
 // Models/Printer.cs
 public class Printer
 {
-    public void Print()
+    public string Print()
     {
-        Console.WriteLine("Default print");
+        return "Printing default document.";
     }
 
-    public void Print(string message)
+    public string Print(string content)
     {
-        Console.WriteLine($"Printing: {message}");
+        return $"Printing: {content}";
     }
 
-    public void Print(string message, int copies)
+    public string Print(string content, int copies)
     {
-        for (int i = 0; i < copies; i++)
-        {
-            Console.WriteLine($"Copy {i + 1}: {message}");
-        }
+        return $"Printing {copies} copies of: {content}";
     }
 }
+
 ```
 
 #### Step 2: Call Overloaded Methods from Controller
 
 ```csharp
 // Controllers/OverloadingController.cs
+using Microsoft.AspNetCore.Mvc;
+
 public class OverloadingController : Controller
 {
     public IActionResult Index()
     {
         Printer printer = new Printer();
-        printer.Print();
-        printer.Print("Hello World");
-        printer.Print("Multiple Copies", 3);
+        string output = "";
 
+        output += printer.Print(); // returns string now
+        output += "<br>" + printer.Print("Hello World");
+        output += "<br>" + printer.Print("Multiple Copies", 3);
+
+        ViewBag.Result = output;
         return View();
     }
+
+
 }
 ```
 
@@ -130,8 +135,9 @@ public class OverloadingController : Controller
 
 ```html
 <!-- Views/Overloading/Index.cshtml -->
-<h2>Check Output in Console</h2>
-<p>This example demonstrates method overloading.</p>
+<h2>Method Overloading Demo</h2>
+<p>@Html.Raw(ViewBag.Result)</p>
+
 ```
 
 ---
@@ -149,3 +155,4 @@ public class OverloadingController : Controller
 ---
 
 Let me know when you're ready to continue with `Overriding`, `Constructor`, or `Abstraction`.
+
