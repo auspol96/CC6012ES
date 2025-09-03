@@ -55,8 +55,7 @@ END;
 
 ### 🔎 Case 1: Query Without Index → Full Table Scan
 ```sql
-EXPLAIN PLAN FOR
-SELECT * FROM Sales WHERE Product_ID = 50;
+EXPLAIN PLAN FOR SELECT * FROM Sales WHERE Product_ID = 50;
 
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 ```
@@ -83,10 +82,7 @@ END;
 ```
 Then run the same query (index-only):
 ```sql
-EXPLAIN PLAN FOR
-SELECT Product_ID
-FROM Sales
-WHERE Product_ID = 50;
+EXPLAIN PLAN FOR SELECT Product_ID FROM Sales WHERE Product_ID = 50;
 
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 ```
