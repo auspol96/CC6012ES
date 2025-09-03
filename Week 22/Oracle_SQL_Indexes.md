@@ -56,9 +56,13 @@ This command collects optimizer statistics for the specified table (and its inde
 ---
 
 ### 🔎 Case 1: Query Without Index → Full Table Scan
+Note on EXPLAIN PLAN FOR:
+This command tells Oracle to generate the execution plan for a SQL statement, showing how the database will access data (e.g., Full Table Scan vs. Index Range Scan). It doesn’t actually run the query — instead, it records the plan in the PLAN_TABLE. You then retrieve it with:
+SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+Using EXPLAIN PLAN helps developers understand and compare the efficiency of queries and verify whether indexes are being used.
+
 ```sql
-EXPLAIN PLAN FOR
-SELECT * FROM Sales WHERE Product_ID = 50;
+EXPLAIN PLAN FOR SELECT * FROM Sales WHERE Product_ID = 50;
 
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
 ```
