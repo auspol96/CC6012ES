@@ -1,7 +1,7 @@
 
 # 🧪 Final Exam Simulation – CS6004ES (LMU)
 
-**Date:** 2025-09-30  
+**Date:** 2025-10-04  
 **Module:** Application Development (ASP.NET Core MVC + OOP)  
 **Duration:** 3 Hours  
 **Format:** Hands-on Programming + Theory
@@ -38,6 +38,7 @@ Use `Debug.WriteLine()` to output old vs new prices in the backend.
 Understand how inheritance and method overriding affect logic flow.
 
 #### 📝 Instructions:
+Create a route `/Grading` that runs this logic and shows results.
 
 ```csharp
 // Base class
@@ -70,7 +71,7 @@ Console.WriteLine($"{s.Name}: {s.GetGrade(55)}");  // Output: Pass
 Console.WriteLine($"{p.Name}: {p.GetGrade(55)}");  // Output: Fail
 ```
 
-Create a route `/Grading` that runs this logic and shows results.
+
 
 ---
 
@@ -119,11 +120,21 @@ Create a route `/Grading` that runs this logic and shows results.
 - Ensure you push your code to GitHub.
 - Use the folder structure:
   ```
-  /FinalExamSimulation
-      /Controllers
-      /Models
-      /Views
-      /Readme.md
+  /FinalExamSimulation_20250904
+      /PartA_Ex_1
+          /Controllers
+          /Models
+          /Views
+          /Readme.md
+      /PartA_Ex_2
+          /Controllers
+          /Models
+          /Views
+          /Readme.md
+      /PartB
+          Put questions and Answer only.
+
+  Then share me the github path.
   ```
 
 ---
