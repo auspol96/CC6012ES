@@ -1,0 +1,81 @@
+# 🛠️ Oracle SQL Developer Installation Guide
+
+This guide provides students with a step-by-step walkthrough on how to download, install, and configure **Oracle SQL Developer**, a free integrated development environment (IDE) for working with Oracle databases.
+
+---
+
+## 📥 1. Download Oracle SQL Developer
+
+### 🔗 Official Download Link:
+👉 https://www.oracle.com/tools/downloads/sqldev-downloads.html
+
+### 📝 Steps:
+1. Go to the link above.
+2. Scroll down to **"Oracle SQL Developer Downloads"**.
+3. Select your operating system:
+   - Windows (No install required – ZIP file)
+   - macOS
+   - Linux RPM or generic
+4. Accept the license agreement.
+5. Click to download the corresponding file.
+6. If prompted, sign in or create a free Oracle account.
+
+---
+
+## 💻 2. Installation Steps
+
+### 🔹 For Windows:
+1. Extract the downloaded ZIP file (e.g., `sqldeveloper-<version>.zip`).
+2. Place the extracted folder in a location like `C:\SQLDeveloper`.
+3. Open the `sqldeveloper.exe` file to launch the program.
+4. On first launch, it may ask for a Java JDK path. Select the installed JDK folder.
+
+> ✅ Tip: If using Oracle 11g or 19c database, make sure Java JDK is installed.
+
+### 🔹 For macOS:
+1. Download the `.dmg` file.
+2. Drag SQL Developer into the Applications folder.
+3. Open from Launchpad or Finder.
+
+---
+
+## 🗂️ 3. Connecting to a Database
+
+### 🧪 Sample Oracle Database:
+- You can use **Oracle Live SQL** for practice without installation:
+  👉 https://livesql.oracle.com
+
+Or, if using a local Oracle XE database:
+1. Click **"+" New Connection**
+2. Fill in:
+   - **Connection Name:** TestConnection
+   - **Username:** system
+   - **Password:** (what you set during Oracle installation)
+   - **Hostname:** localhost
+   - **Port:** 1521
+   - **SID/Service Name:** XE
+3. Click **Test** → then **Connect**
+
+---
+
+## 📎 4. Useful Shortcuts
+- Run SQL (F5)
+- Execute Statement (Ctrl+Enter)
+- Auto-complete (Ctrl+Space)
+- Commit (Ctrl+Shift+C)
+- Rollback (Ctrl+Shift+R)
+
+---
+
+## 🧠 5. Troubleshooting Tips
+- If it won’t start, check Java version (must be JDK, not just JRE)
+- Port 1521 must be open if connecting remotely
+- For Oracle Live SQL, ensure you're using supported browsers
+
+---
+
+For additional help, contact your lecturer or visit Oracle’s documentation:
+👉 https://docs.oracle.com/en/
+
+> This setup guide is intended for student learning purposes in CS6004ES or related courses.
+
