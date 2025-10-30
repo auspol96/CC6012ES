@@ -117,7 +117,7 @@ Console.WriteLine($"{p.Name}: {p.GetGrade(55)}");  // Output: Fail
 
 ## 📘 Submission Instructions
 
-- Ensure you push your code to GitHub.
+- Ensure you firstly clarify your project structure and filename.
 - Use the folder structure:
   ```
   /FinalExamSimulation_20250904
@@ -134,7 +134,7 @@ Console.WriteLine($"{p.Name}: {p.GetGrade(55)}");  // Output: Fail
       /PartB
           Put questions and Answer only.
 
-  Then share me the github path.
+  This is Paper based.
   ```
 
 ---
