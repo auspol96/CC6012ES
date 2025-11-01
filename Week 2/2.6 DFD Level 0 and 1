@@ -1,0 +1,102 @@
+# Levels of Data Flow Diagrams (DFD)
+
+## 🧩 Overview
+
+Data Flow Diagrams (DFDs) can be drawn at multiple levels to show how data moves through a system — from a **broad overview** to **detailed internal processes**.
+
+Each level provides a deeper understanding of how the system works.
+
+---
+
+## **Level 0 – Context Diagram**
+
+* The **highest-level** and most abstract view of the system.
+* Shows the **entire system as one single process** (Process 0).
+* Displays **external entities** (people, organizations, systems) that interact with it.
+* Only shows **major data flows** in and out of the system — no internal details.
+
+🟢 *Think of it as the “bird’s-eye view” of the system.*
+
+### Example:
+
+```
+[Customer] → (Process 0: Order System) → [Supplier]
+```
+
+* `Customer` and `Supplier` are external entities.
+* `Order System` is the single main process.
+* Data flows represent information exchanged (e.g. orders, confirmations).
+
+---
+
+## **Level 1 – Top-Level DFD**
+
+* Expands **Process 0** into **main sub-processes** (usually 3–7).
+* Shows **data stores** and **data flows** between them.
+* Each process represents a **major system function**.
+
+🟢 *This level explains how the main system functions internally.*
+
+### Example:
+
+```
+(Customer) → (1.0 Receive Order) → (2.0 Validate Order) → [Order DB]
+```
+
+* Process 1.0 and 2.0 are top-level subprocesses.
+* `[Order DB]` is a data store showing where the data is kept.
+
+---
+
+## **Level 2 (and Lower) – Detailed DFDs**
+
+* Each **Level 1 process** can be broken down into **more detailed subprocesses**.
+* Used to describe **specific tasks or logic** within each process.
+* Continue decomposing until reaching **primitive processes** — the lowest level that cannot be broken down further.
+
+🟢 *This level shows exactly how each process works step by step.*
+
+### Example:
+
+```
+(2.0 Validate Order)
+ ├── (2.1 Check Customer Credit)
+ ├── (2.2 Verify Inventory)
+ └── (2.3 Confirm Order)
+```
+
+* Each child process performs one specific task.
+
+---
+
+## 🧠 **Summary Table**
+
+| Level  | Name             | Description                        | Focus                  |
+| ------ | ---------------- | ---------------------------------- | ---------------------- |
+| **0**  | Context Diagram  | Whole system and external entities | System boundary        |
+| **1**  | Top-Level DFD    | Main processes and data stores     | Major system functions |
+| **2+** | Lower-Level DFDs | Detailed breakdown of subprocesses | Internal logic         |
+
+---
+
+## 💡 **When to Stop Decomposing**
+
+Stop when each process performs a **single, well-defined activity** — this is called a **primitive process**.
+
+### Example Hierarchy
+
+```
+Level 0: Process 0 – Order Management System
+Level 1: 1.0 Receive Order, 2.0 Validate Order, 3.0 Ship Order
+Level 2: 2.0 Validate Order → 2.1 Check Credit, 2.2 Verify Inventory
+```
+
+---
+
+## ✅ **In Summary**
+
+* **Level 0** → Big picture (system + external entities)
+* **Level 1** → Main internal processes
+* **Level 2+** → Detailed breakdowns until primitive processes
+
+A good DFD allows anyone to understand **what happens**, **where data goes**, and **how information flows** throughout the system.
