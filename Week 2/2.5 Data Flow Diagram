@@ -1,0 +1,79 @@
+# Data Flow Diagram (DFD) Notation Guide
+
+## 🧩 1. Overview
+
+A **Data Flow Diagram (DFD)** visually represents how data moves through a system — showing **processes**, **data flows**, **data stores**, and **external entities**.
+
+It helps identify where data comes from, how it is processed, where it is stored, and where it goes.
+
+---
+
+## ⚙️ 2. DFD Symbols (Standard Notation)
+
+| Element                                | Description                                                              | Typical Shape                                     | Example                               |
+| -------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------- | ------------------------------------- |
+| **Process**                            | An activity or function that transforms input into output                | ⚪ **Circle** (or rounded rectangle)               | *Process Order*, *Validate Payment*   |
+| **Data Flow**                          | Movement of data between elements                                        | ➡️ **Arrow**                                      | *Order Details → Validate Order*      |
+| **Data Store**                         | Permanent or temporary data repository                                   | 🟦 **Open-ended rectangle** (two parallel lines)  | *Customer Database*, *Inventory File* |
+| **External Entity / Agent**            | Person, organization, or system outside the scope that interacts with it | ⬜ **Rectangle**                                   | *Customer*, *Payment Gateway*         |
+| **Information Store / Data Structure** | Logical representation of stored entities and attributes                 | 🗃️ Often same as Data Store in detailed diagrams | *Product (ProductID, Name, Price)*    |
+
+---
+
+## 🔄 3. Example: Simple Data Flow
+
+### DFD for **Submit Order**
+
+```
+     +--------------------+
+     |    CUSTOMER        |  (External Entity)
+     +--------------------+
+               |
+               | Order Details
+               v
+          (1) ⚪ Receive Order       ← Process
+               |
+               | Validated Data
+               v
+          (2) ⚪ Save to Database    ← Process
+               |
+               v
+      [== Order Database ==]        ← Data Store
+```
+
+---
+
+## 🧠 4. Key Rules for DFD Design
+
+1. **Each process must have both input and output**
+   → Data cannot disappear or appear from nowhere.
+2. **External entities** are always outside the system boundary.
+   → They provide or receive data, but do not process it.
+3. **Data stores** represent where data is kept permanently or temporarily.
+   → They connect only to processes (not directly to external entities).
+4. **Processes** are shown as **circles** or **rounded rectangles**.
+   → Each process should represent one clear function.
+5. **Data flows** use arrows to show direction of information movement.
+   → The arrow label should name the data being transferred.
+
+---
+
+## 💡 5. Quick Visual Summary
+
+| Symbol   | Meaning                             |
+| -------- | ----------------------------------- |
+| ⚪        | Process (transforms data)           |
+| ➡️       | Data Flow (movement of information) |
+| [==  ==] | Data Store (where data is kept)     |
+| ⬜        | External Entity (outside actor)     |
+
+---
+
+### ✅ In Short
+
+> **Processes** = Circles
+> **Data Flows** = Arrows
+> **Data Stores** = Two parallel lines `[== ==]`
+> **External Entities** = Rectangles
+
+Together, these make up a complete **Data Flow Diagram** that maps how information moves through a system.
