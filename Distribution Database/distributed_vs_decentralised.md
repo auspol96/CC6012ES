@@ -1,0 +1,104 @@
+# 📘 Distributed vs Decentralised Databases  
+### *Lecture Summary for Students*
+
+## 1. 🌍 Overview  
+Students often confuse **distributed** and **decentralised** databases because both involve data stored in multiple places.  
+The key difference is the **network connection** and **how the database behaves**.
+
+---
+
+## 2. 🧠 One-Sentence Memory Trick  
+- **Distributed Database:** *One database, many locations, all connected.*  
+- **Decentralised Database:** *Many independent databases, no connection.*
+
+---
+
+## 3. 🔍 Definitions
+
+### **Distributed Database**  
+A single logical database whose data is physically stored across multiple computer sites that are **connected by a communication network**.  
+Users at different sites access data as if it were **one unified system**.
+
+**Key characteristics:**
+- Sites are connected (LAN/WAN/Internet)  
+- Data can be shared across sites  
+- Appears as one database  
+- Central coordination or cooperative control  
+
+---
+
+### **Decentralised Database**  
+A collection of separate databases stored at multiple sites that are **not connected** by any communication network.  
+Each site operates **independently** with no automatic data sharing.
+
+**Key characteristics:**
+- Sites are NOT connected  
+- Each location has its own standalone database  
+- No automatic sharing  
+- No central control  
+
+---
+
+## 4. 🏪 Real-Life Examples
+
+### **Distributed Database Examples**
+- Bank ATM networks  
+- Google Cloud Spanner  
+- Multi-branch supermarket with shared inventory system  
+
+### **Decentralised Database Examples**
+- Independent clinics each using local software  
+- Small shops with no shared POS system  
+- Separate government agencies with isolated databases  
+
+---
+
+## 5. 🗂 Comparison Table
+
+| Feature | **Distributed DB** | **Decentralised DB** |
+|--------|---------------------|------------------------|
+| Network connection | ✔ Connected | ✘ Not connected |
+| Data sharing | ✔ Yes | ✘ No |
+| Logical database | Single | Multiple |
+| Coordination | Central or cooperative | None |
+| Data consistency | Can be synchronised | No automatic sync |
+| Example | ATM network | Independent clinics |
+
+---
+
+## 6. 📊 Diagrams
+
+### **Distributed Database**
+```
+       [DB Server A] <----- network -----> [DB Server B]
+            |                                   |
+       (same logical DB)                  (same logical DB)
+```
+
+### **Decentralised Database**
+```
+      [DB A]        [DB B]        [DB C]
+   (no connection)(no connection)(no connection)
+```
+
+---
+
+## 7. 🎓 Quick In-Class Activity  
+Read each scenario and classify:
+
+| Scenario | Distributed or Decentralised? |
+|---------|--------------------------------|
+| Starbucks stores share customer points in real-time | **Distributed** |
+| Small bookstores operate independently | **Decentralised** |
+| University campuses using a single registration system | **Distributed** |
+| Private accounting offices with separate systems | **Decentralised** |
+
+---
+
+## 8. ✍ Sample Exam-Ready Answer
+
+**Distributed database:**  
+A single logical database stored across multiple sites connected by a communication network. Users at different locations can access the same shared data.
+
+**Decentralised database:**  
+A collection of independent databases stored at different sites that are not connected. Each site maintains and controls its own data without sharing.
