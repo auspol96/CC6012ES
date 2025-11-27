@@ -29,46 +29,16 @@ From the reading, list 5 attacks and write:
 - Why it is dangerous  
 - A real-life example (self-created)
 
-**Suggested Answers**
-1) **SQL Injection**  
-   - Inject malicious SQL to read or change data.  
-   - Dangerous because it bypasses authentication.  
-
-2) **Privilege Abuse**  
-   - Insider misuses access they already have.  
-
-3) **Weak Authentication**  
-   - Weak or reused passwords.  
-
-4) **Malware Attacks**  
-   - Keyloggers or ransomware capturing DB credentials.  
-
-5) **Denial of Service (DoS)**  
-   - Overloading DB to take system offline.
-
 ---
 
 ### **Task 2 – Explain How SQL Injection Works**
-**Expected Answer (Simple Explanation)**  
-SQL injection happens when user inputs are sent directly into SQL queries without validation, allowing attackers to modify the query.
-
-Example:
-```
-SELECT * FROM users WHERE username = 'admin' OR '1'='1';
-```
-
+ 
 ---
 
 ### **Task 3 – Recommend Solutions**
 Students must propose solutions for 5 threats.
 
-**Sample Solutions**
-- Use prepared statements / parameterised queries  
-- Apply least privilege principle  
-- Strong passwords + MFA  
-- Regular auditing  
-- Firewall + network segmentation  
-- Encryption of data in transit and at rest  
+ 
 
 ---
 
