@@ -75,10 +75,10 @@ Students should complete the same for Bob, Carol, and David.
 
 | User / Object | Names (Public) | Salary (Confidential) | Cost Structure (Internal) | R&D (Secret) | Acquisition (Top Secret) |
 |---------------|----------------|------------------------|----------------------------|--------------|----------------------------|
-| Alice (Internal) | ✔ | ✖ | ✔ | ✖ | ✖ |
-| Bob (Confidential) | ✔ | ✔ | ✔ | ✖ | ✖ |
-| Carol (Secret) | ✔ | ✔ | ✔ | ✔ | ✖ |
-| David (Top Secret) | ✔ | ✔ | ✔ | ✔ | ✔ |
+| Alice (Internal) | ✔ |  |  |  |  |
+| Bob (Confidential) | ✔ |  |  |  |  |
+| Carol (Secret) | ✔ |  |  |  |  |
+| David (Top Secret) | ✔ |  |  |  |  |
 
 ---
 
@@ -87,19 +87,19 @@ Students should complete the same for Bob, Carol, and David.
 Students answer:
 
 1. Which model is more flexible?  
-   **Answer:** DAC
+   **Answer:**  
 
 2. Which model is more secure for sensitive data?  
-   **Answer:** MAC
+   **Answer:**  
 
 3. Which model fits a university environment?  
-   **Answer:** DAC
+   **Answer:**  
 
 4. Which model fits military or government systems?  
-   **Answer:** MAC
+   **Answer:**  
 
 5. Which model better prevents insider misuse?  
-   **Answer:** MAC
+   **Answer:**  
 
 ---
 
