@@ -32,7 +32,7 @@ CREATE TABLE Employee (
 );
 ```
 
-### ✔ Sample Data (Optional)
+### ✔ Sample Data (note: this will be errors, student need to find the way to insert them)
 ```sql
 INSERT INTO Employee (EmpID, Name, Position, Salary, Department) VALUES
 (1, 'Alice Tan', 'HR Officer', 35000.00, 'HR'),
@@ -59,7 +59,7 @@ CREATE TABLE Product (
 );
 ```
 
-### ✔ Sample Data (Optional)
+### ✔ Sample Data (same as above, this will be error.)
 ```sql
 INSERT INTO Product (ProdID, ProdName, Price, Stock, Supplier) VALUES
 (101, 'Laptop X1', 1200.00, 50, 'TechSupplier Co.'),
@@ -99,11 +99,13 @@ CREATE USER Guest IDENTIFIED BY pass123;
 
 ### **Task 2 – Grant Permissions**
 
-#### **1. HR Staff – Can select all columns except Salary**
+#### **1. HR Staff – Can select all columns except Salary** 
 ```sql
-GRANT SELECT (EmpID, Name, Position, Department)
-ON Employee
-TO HR_Staff;
+CREATE VIEW View_HR_Employee AS
+SELECT EmpID, Name, Position, Department
+FROM Employee;
+
+GRANT SELECT ON View_HR_Employee TO HR_Staff;
 ```
 
 ---
@@ -146,9 +148,11 @@ Allow Sales Staff to view only products priced over 100.
 
 *(Conceptual example — not supported by all DBMS)*  
 ```sql
-GRANT SELECT ON Product
-WHERE Price > 100
-TO Sales_Staff;
+CREATE VIEW View_Expensive_Products AS
+SELECT * FROM Product 
+WHERE Price > 100;
+
+GRANT SELECT ON View_Expensive_Products TO Sales_Staff;
 ```
 
 ---
