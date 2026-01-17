@@ -98,6 +98,49 @@ Once logged into SSMS, you should see:
 > Note: Double backslashes (`\\`) are needed in `.NET` JSON strings.
 
 ---
+```sql
+CREATE TABLE Categories (
+    CategoryId INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Movies (
+    MovieId INT IDENTITY(1,1) PRIMARY KEY,
+    Title NVARCHAR(200) NOT NULL,
+    ReleaseDate DATE,
+    Price DECIMAL(10,2),
+    CategoryId INT,
+    CONSTRAINT FK_Movies_Categories
+        FOREIGN KEY (CategoryId)
+        REFERENCES Categories(CategoryId)
+);
+
+INSERT INTO Categories (Name) VALUES
+('Action'),
+('Comedy'),
+('Drama'),
+('Science Fiction'),
+('Animation');
+
+
+INSERT INTO Movies (Title, ReleaseDate, Price, CategoryId) VALUES
+('Inception', '2010-07-16', 12.99, 4),
+('The Dark Knight', '2008-07-18', 10.99, 1),
+('Forrest Gump', '1994-07-06', 8.99, 3),
+('The Hangover', '2009-06-05', 7.99, 2),
+('Toy Story', '1995-11-22', 6.99, 5),
+('Interstellar', '2014-11-07', 13.99, 4),
+('Joker', '2019-10-04', 11.99, 3);
+
+SELECT * FROM Categories;
+SELECT * FROM Movies;
+
+SELECT m.Title, c.Name AS Category, m.Price
+FROM Movies m
+JOIN Categories c ON m.CategoryId = c.CategoryId;
+
+```
+
 
 ## ✅ Summary
 
