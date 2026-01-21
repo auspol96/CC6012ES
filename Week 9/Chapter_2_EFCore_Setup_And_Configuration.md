@@ -8,7 +8,7 @@
 ## 🎯 Objective
 
 By the end of this chapter, students will:
-- Understand the role of Entity Framework Core (EF Core) in ASP.NET Core MVC projects.
+- Understand the role of Entity Framework Core (EF Core) in ASP.NET Core MVC projects. (EF Core lets you treat database tables as C# objects.)
 - Install necessary EF Core packages.
 - Configure the connection string for SQL Server.
 - Register the database context class in the application.
