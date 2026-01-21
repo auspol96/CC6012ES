@@ -55,7 +55,7 @@ This will be used later in the connection string.
 
 This step is important to avoid connection issues like error 40 when using EF Core.
 
-1. Open **Run** (`Win + R`) and type:
+1. Open SQL Server Configuration Manager by find program "SQL Server Configuration Manager" or **Run** (`Win + R`) and type:
 
    ```
    SQLServerManager15.msc
