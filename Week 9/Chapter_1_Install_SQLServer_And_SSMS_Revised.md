@@ -83,7 +83,7 @@ This step is important to avoid connection issues like error 40 when using EF Co
 
 Once logged into SSMS, you should see:
 - Databases > System Databases
-- Need to create a database and tables per the below SQL scripts.
+- Need to create a database name "MovieDB" and tables per the below SQL scripts.
 
 ---
 
