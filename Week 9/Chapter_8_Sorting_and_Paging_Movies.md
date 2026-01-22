@@ -48,7 +48,7 @@ public async Task<IActionResult> Index(string sortOrder, int pageNumber = 1)
 
 ---
 
-## Step 2: Update Index View Headers
+## Step 2: Update Index View Headers (Views/Movie/Index.cshtml), the code should be at the header table.
 
 ```html
 <th><a asp-action="Index" asp-route-sortOrder="@ViewBag.TitleSort">Title</a></th>
@@ -59,7 +59,7 @@ public async Task<IActionResult> Index(string sortOrder, int pageNumber = 1)
 
 ---
 
-## Step 3: Add Pagination Controls
+## Step 3: Add Pagination Controls (Views/Movie/Index.cshtml) after the table close tag.
 
 ```html
 <div>
