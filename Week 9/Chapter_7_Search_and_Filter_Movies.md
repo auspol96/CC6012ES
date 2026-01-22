@@ -22,33 +22,40 @@ This chapter adds those features **without creating new tables**.
 
 ---
 
-## ✅ Step 1: Update the Index Action (Controller)
+## ✅ Step 1: Update (replace current index code with below) the Index Action (Controller)
 
 📄 Controllers/MovieController.cs
 
 ```csharp
 public async Task<IActionResult> Index(string searchString, string movieGenre)
 {
-    var genreQuery = _context.Movies
+    // Get distinct genres for dropdown
+    IQueryable<string> genreQuery = _context.Movies
         .OrderBy(m => m.Genre)
         .Select(m => m.Genre)
         .Distinct();
 
-    var movies = _context.Movies.AsQueryable();
+    // Base query
+    var movies = from m in _context.Movies
+                 select m;
 
+    // Filter by title
     if (!string.IsNullOrEmpty(searchString))
     {
-        movies = movies.Where(m => m.Title.Contains(searchString));
+        movies = movies.Where(s => s.Title.Contains(searchString));
     }
 
+    // Filter by genre
     if (!string.IsNullOrEmpty(movieGenre))
     {
-        movies = movies.Where(m => m.Genre == movieGenre);
+        movies = movies.Where(x => x.Genre == movieGenre);
     }
 
     ViewBag.Genres = new SelectList(await genreQuery.ToListAsync());
+
     return View(await movies.ToListAsync());
 }
+
 ```
 
 ---
